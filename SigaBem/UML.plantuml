@@ -1,0 +1,186 @@
+@startuml SigaBem
+    class Location {
+        -String zipCode;
+        -String highway;
+        -int km;
+        -String reference;
+    }
+
+    class Problem {
+        -long id;
+        -long occurrences;
+        -Solution solution;
+        -String description;
+        -String name;
+        -Weather weather;
+        -Location location;
+        -Road road;
+        + updateOccurrences()
+    }
+
+    class Brand {
+        - short id;
+        - String name;
+        - boolean national;
+        + Brand()
+    }
+
+    class Truck {
+        - int id;
+        - String name;
+        - TypeOfTruck type;
+        - float fuel;
+        - boolean electric;
+        + Truck()
+    }
+
+    class TypeOfTruck {
+        - int id;
+        - boolean tractor;
+        - float weight;
+        - Brand brand;
+        - String model;
+        - Date year;
+        - float fuelCapacity;
+        - Category category;
+        + TypeOfTruck()
+    }
+
+    class TowTruck {
+        - int id;
+        - String name;
+        - TypeOfTowTruck type;
+        - float gas;
+        - Driver driver;
+        - String licensePlate;
+        + TowTruck()
+    }
+
+    class TypeOfTowTruck {
+        - int id;
+        - boolean platform;
+        - float weightCapacity;
+        - Brand brand;
+        - String model;
+        - Date year;
+        - String tools;
+        + TypeOfTowTruck()
+    }
+
+    class Client {
+        - int id;
+        - String name;
+        - Date birthdate;
+        - char genre;
+        - String driverLicense;
+        - char driverLicenseType;
+        + Client()
+    }
+
+    class Driver {
+        - int id;
+        - boolean status;
+        - String name;
+        - Date birthdate;
+        - char genre;
+        - String license;
+        - char licenseType;
+        + Driver()
+    }
+
+    class Operator {
+        - int id;
+        - boolean status;
+        - String name;
+        - Date birthdate;
+        - char genre;
+        + Operator()
+    }
+
+    class Location {
+'        - String zipCode;
+'        - String highway;
+'        - int km;
+'        - String reference;
+        + Location()
+    }
+
+    class Road {
+        - boolean bumpy;
+        - boolean wet;
+        - boolean incident;
+        - boolean hole;
+        - boolean dirtRoad;
+        + Road()
+    }
+
+    class Weather {
+        - short wind;
+        - short precipitation;
+        - short temperature;
+        - boolean snow;
+        - boolean rain;
+        + Weather()
+        + getWeatherFromAPI()
+    }
+
+    class Category {
+        - short id;
+        - float minWeight;
+        - float maxWeight;
+        - boolean status;
+        + Category()
+    }
+
+    class Insurance {
+        - byte id;
+        - float price;
+        - Category category;
+        + Insurance()
+
+    }
+
+    class Problem {
+'        HIGH
+        + Problem()
+    }
+
+    class Solution {
+        - long id;
+        - String description;
+        - TypeOfTowTruck type;
+        - Problem problem;
+        + Solution()
+        + findSolution()
+    }
+
+    class Ticket {
+        - long id;
+        - TowTruck towTruck;
+        - Client client;
+        - Problem problem;
+        - Operator operator;
+        + Ticket()
+    }
+
+
+    Problem --> Solution
+    Location --> Problem
+    Weather --> Problem
+    Road --> Problem
+    Solution --> Problem
+    TypeOfTruck --> Truck
+    Brand --> TypeOfTruck
+    Category --> TypeOfTruck
+    Category --> Insurance
+    Truck --> Client
+    Insurance --> Client
+    Problem --> Ticket
+    Client --> Ticket
+    Operator --> Ticket
+    TowTruck --> Ticket
+    Driver --> TowTruck
+    TypeOfTowTruck --> TowTruck
+    TypeOfTowTruck --> Solution
+
+@enduml
